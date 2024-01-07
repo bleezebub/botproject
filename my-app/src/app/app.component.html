@@ -1,0 +1,54 @@
+<label for="yearDropdown">Select Year:</label>
+<select id="yearDropdown" [(ngModel)]="selectedYear" name="selectedYear" (ngModelChange)="onYearChange()">
+  <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+</select>
+
+<div>
+  <button (click)="cityTotalSales()">city wise sale 2013-2017</button>
+</div>
+
+<div>
+  <button (click)="storeTotalSales()">store wise sale 2013-2017</button>
+</div>
+
+
+<div>
+  <button (click)="storeSalesPrediction()">store wise prediction for 15 days</button>
+</div>
+<div>
+  <button (click)="predictionTotalSales()">sales prediction for 15 days</button>
+</div>
+<div>
+  <form [formGroup]="salesForm" (ngSubmit)="onFormSubmit()">
+    <label for="city">Select City:</label>
+    <select id="city" formControlName="city">
+      <option *ngFor="let city of cities" [value]="city.CITY">{{ city.CITY }}</option>
+    </select>
+
+    <label for="year">Select Year:</label>
+    <select id="year" formControlName="year">
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+
+    <button type="submit">Get Sales Data</button>
+  </form>
+
+</div>
+
+<div *ngIf="displayByLastYear">
+  <app-sales-chart [salesData]="salesData"></app-sales-chart>
+</div>
+
+
+<div *ngIf="displayCitySales">
+  <app-city-sales-pie [salesData]="citysalesData"></app-city-sales-pie>
+</div>
+
+
+<div *ngIf="displayStoreSales">
+  <app-store-sales [salesData]="statesalesData"></app-store-sales>
+</div>
+
+<div *ngIf="formsalesdata">
+  <app-sales-chart [salesData]="formsalesdata"></app-sales-chart>
+</div>
